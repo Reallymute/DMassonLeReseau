@@ -1,0 +1,17 @@
+AppBundle\Entity\PCIManager:
+    type: entity
+    table: public.pcimanager
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        dateValid:
+            type: datetime
+            column: DateValid
+        status:
+            type: smallint
+            column: Status
+    lifecycleCallbacks: {  }

@@ -1,0 +1,86 @@
+"C:\wamp\bin\php\php5.5.12\php.exe" "F:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" --version
+"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" --version
+
+"C:\wamp\bin\php\php5.5.12\php.exe" "F:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" server:status
+"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" server:status
+
+"C:\wamp\bin\php\php5.5.12\php.exe" "F:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" doctrine:ensure-production-settings
+
+"C:\wamp\bin\php\php5.5.12\php.exe" "F:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" help
+
+"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" doctrine:database:create
+
+E:\Public\Dev\PHP\ReseauDM\symfony2-7
+
+
+Commandes pour contsruire pont entre PHP et db:
+
+Nécessaire :
+
+valeurs d'environnement relatif à base de données stockées dans;
+E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\config\config.yml    ALIAS  config.yml
+
+instructions précises sur la configuration régissant les connexions aux bases de données
+E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\config\parameters.yml
+
+il faut préciser une base de donnée qui n'este pas encore. Si elle existe, passer à commande 2
+
+Commandes:
+Etape 1
+"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" doctrine:database:create
+
+Etape 2
+"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" doctrine:generate:entity
+	2.1  ; durant creation entity, demander la configuration YML (non pas annotation)
+
+Etape 3
+modifier fichier :
+E:\Public\Dev\PHP\ReseauDM\symfony2-7\src\AppBundle\Resources\config\doctrine\<Nom de l'entité créée lors d'etape 2>.orm.yml
+ACTIONde moditfication ;
+trouver ligne :
+    table: <nom de l'entité créée>
+remplacer par
+    table: <nom du schéma postsgresql de la base qui est précisé dans config.yml>.<nom de l'entité créée>
+# exemple;
+    table: public.pcimanager
+
+
+
+Etape 4
+IMPORTANT ****************
+Contenu nécessaire dans config.yml
+doctrine:
+...
+    orm:
+...
+        entity_managers:
+...
+            <your entity manager name here>:  # must match a member of list in dbal:connections: section
+                connection: pgsql    # connection name for your additional DB
+
+                # bundles utilisant la connexion Postgresql
+                mappings:
+                    AppBundle:  ~
+		    <les noms des Bundles qui sont dépendant de l'ORM précisé dans 'connection' ci-dessus>...
+			...
+Etape 5
+IMPORTANT ****************
+Pour adapter symfpny doctrine aux besoins de Postgres:
+Placer des definition dans config.yml
+
+mapping_types:
+    <type de donnée à attribuer à colonne connue dand schéma postgresql>: <type de donné interne à doctrine>
+	# exemple:
+	oid : integer
+
+"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" doctrine:schema:update --force --em=<nom du entity manager présent dans config.yml>
+
+
+
+
+COMMANDES DIAGNOSTIQUES *******************************************************************************
+E:\Public\Dev\PHP\ReseauDM\symfony2-7>"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" doctrine:schema:update --em=<nom du entity manager présent dans config.yml> --dump-sql
+exemple:
+E:\Public\Dev\PHP\ReseauDM\symfony2-7>"F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\ReseauDM\symfony2-7\app\console" doctrine:schema:update --em=pgsql --dump-sql
+
+
