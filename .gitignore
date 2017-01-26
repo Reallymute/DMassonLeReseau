@@ -10,7 +10,7 @@
 /vendor/
 /bin/
 /composer.phar
-
+/composer.lock
 
 # Elastic Beanstalk Files
 

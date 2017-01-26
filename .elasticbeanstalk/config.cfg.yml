@@ -1,14 +1,14 @@
 branch-defaults:
   default:
-    environment: Sample-env
+    environment: DMasson_LE_RESEAU
   master:
-    environment: Sample-env
+    environment: DMasson_LE_RESEAU_Master
 environment-defaults:
   Sample-env:
     branch: null
     repository: null
 global:
-  application_name: DMasson LE RESEAU
+  application_name: DMasson_LE_RESEAU
   default_ec2_keyname: null
   default_platform: 64bit Amazon Linux 2016.09 v2.3.0 running PHP 7.0
   default_region: eu-west-2
