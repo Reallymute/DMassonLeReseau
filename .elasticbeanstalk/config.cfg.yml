@@ -1,10 +1,10 @@
 branch-defaults:
   default:
-    environment: DMasson_LE_RESEAU
+    environment: DMassonLERESEAU-dev
   master:
-    environment: DMasson_LE_RESEAU_Master
+    environment: DMassonLERESEAU-dev
 environment-defaults:
-  Sample-env:
+  DMassonLERESEAU-dev:
     branch: null
     repository: null
 global:

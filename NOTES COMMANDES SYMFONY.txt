@@ -90,4 +90,10 @@ COMMANDE ANNEXES :
 
 "F:\wamp\bin\php\php5.5.12\php.exe" "E:\Public\Dev\PHP\AWSwithComposer\src\AWSMonologTest.php"
 
-11b1c4e7669c769c1321542b62ff19ac
+
+
+
+COMPOSER NOTES :
+
+
+
